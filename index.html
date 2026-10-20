@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語治不嘻嘻 | 語言與吞嚥復健工作室</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        milktea: {
+                            50: '#FAF6F0',
+                            100: '#F4ECE1',
+                            200: '#E8D8C8',
+                            300: '#D8C2B0',
+                            400: '#C4A48A',
+                            500: '#AB8567',
+                            600: '#8C6547',
+                            700: '#6E4C32',
+                        },
+                        macaron: {
+                            50: '#F0F9F5',
+                            100: '#E1F4EC',
+                            200: '#C2E8D8',
+                            300: '#9AD6BF',
+                            400: '#74C4A5',
+                            500: '#52AD89',
+                            600: '#3A8F6C',
+                            700: '#286B4F',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FAF6F0;
+            color: #534237;
+            scroll-behavior: smooth;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#C2E8D8 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 30px -5px rgba(171, 133, 103, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-milktea-50 text-milktea-700 antialiased selection:bg-macaron-200 selection:text-macaron-700">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-milktea-50/90 backdrop-blur-md border-b border-milktea-200/60 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo & Name -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-macaron-200 text-macaron-600 flex items-center justify-center text-2xl shadow-sm group-hover:scale-105 transition-transform">
+                        <i class="fa-solid font-bold fa-comments"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold tracking-wide text-milktea-700 block">語治不嘻嘻</span>
+                        <span class="text-xs text-macaron-600 font-medium tracking-wider">語言與吞嚥關懷工作室</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-8 text-base font-medium">
+                    <a href="#about" class="hover:text-macaron-600 transition-colors">關於我們</a>
+                    <a href="#services" class="hover:text-macaron-600 transition-colors">陪伴項目</a>
+                    <a href="#self-check" class="hover:text-macaron-600 transition-colors">自我檢測</a>
+                    <a href="#tips" class="hover:text-macaron-600 transition-colors">日常小撇步</a>
+                    <a href="#faq" class="hover:text-macaron-600 transition-colors">常見問題</a>
+                    <a href="#contact" class="bg-macaron-400 hover:bg-macaron-500 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        <i class="fa-regular fa-calendar-check"></i> 找我們聊聊
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-milktea-600 focus:outline-none p-2 rounded-lg hover:bg-milktea-100">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-milktea-100/95 border-b border-milktea-200 px-6 py-4 space-y-3">
+            <a href="#about" class="block text-milktea-700 hover:text-macaron-600 font-medium py-1">關於我們</a>
+            <a href="#services" class="block text-milktea-700 hover:text-macaron-600 font-medium py-1">陪伴項目</a>
+            <a href="#self-check" class="block text-milktea-700 hover:text-macaron-600 font-medium py-1">自我檢測</a>
+            <a href="#tips" class="block text-milktea-700 hover:text-macaron-600 font-medium py-1">日常小撇步</a>
+            <a href="#faq" class="block text-milktea-700 hover:text-macaron-600 font-medium py-1">常見問題</a>
+            <a href="#contact" class="block w-full text-center bg-macaron-400 text-white py-2.5 rounded-xl font-medium shadow-sm">找我們聊聊</a>
+        </div>
+    </nav>
+
+    <!-- Hero / Welcoming Section -->
+    <section class="relative py-12 md:py-20 bg-pattern overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <!-- Text Content -->
+                <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 bg-macaron-100 text-macaron-700 px-4 py-1.5 rounded-full text-sm font-medium border border-macaron-200">
+                        <span class="w-2 h-2 rounded-full bg-macaron-500 animate-pulse"></span>
+                        嗨！今天過得好嗎？歡迎來到語治不嘻嘻！
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-milktea-700 leading-tight">
+                        好好吃飯、安心說話<br>
+                        <span class="text-macaron-600 relative inline-block mt-2">
+                            我們陪你一起慢慢練回來！
+                            <svg class="absolute -bottom-2 left-0 w-full" height="10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="#9AD6BF" stroke-width="4" fill="transparent" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-milktea-600 leading-relaxed max-w-xl mx-auto md:mx-0">
+                        工作室名字叫「不嘻嘻」，是因為我們對專業非常認真；但來到這裡，我們就像老朋友一樣，輕鬆聊、慢慢練。吞嚥卡卡的、講話有點吃力？別擔心，有我們在呢！
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                        <a href="#contact" class="bg-macaron-500 hover:bg-macaron-600 text-white font-medium px-8 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-mug-hot"></i> 預約個別諮詢
+                        </a>
+                        <a href="#self-check" class="bg-milktea-100 hover:bg-milktea-200 text-milktea-700 font-medium px-8 py-3.5 rounded-2xl border border-milktea-300 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-clipboard-check text-macaron-600"></i> 先做簡易自我評估
+                        </a>
+                    </div>
+
+                    <!-- Highlights Badge -->
+                    <div class="pt-6 grid grid-cols-3 gap-3 border-t border-milktea-200/80 text-center md:text-left">
+                        <div class="p-2">
+                            <p class="text-lg md:text-xl font-bold text-macaron-600">一對一</p>
+                            <p class="text-xs text-milktea-500">專屬溫馨步調</p>
+                        </div>
+                        <div class="p-2 border-x border-milktea-200">
+                            <p class="text-lg md:text-xl font-bold text-macaron-600">無壓力</p>
+                            <p class="text-xs text-milktea-500">放鬆像在家裡</p>
+                        </div>
+                        <div class="p-2">
+                            <p class="text-lg md:text-xl font-bold text-macaron-600">全方位</p>
+                            <p class="text-xs text-milktea-500">語言 + 吞嚥照顧</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Studio Image Placeholder / Card -->
+                <div class="md:col-span-5 relative">
+                    <div class="bg-white p-6 rounded-3xl soft-shadow border border-milktea-200/60 relative z-10">
+                        <div class="bg-milktea-100 rounded-2xl h-72 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden group">
+                            <!-- Warm Graphic Illustration Placeholder -->
+                            <div class="w-24 h-24 rounded-full bg-macaron-200 text-macaron-600 flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-milktea-700 mb-2">溫暖陪伴，沒有挫折感</h3>
+                            <p class="text-sm text-milktea-600">「慢慢來，比較快。」每一次的小進步，我們都為你開心慶祝！</p>
+                            
+                            <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-macaron-300/30 rounded-full blur-xl"></div>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-xs text-milktea-500 px-2">
+                            <span><i class="fa-solid fa-location-dot text-macaron-500"></i> 獨立私人練習空間</span>
+                            <span><i class="fa-solid fa-heart text-pink-400"></i> 熟客評分 5.0 滿分安心感</span>
+                        </div>
+                    </div>
+                    <!-- Decorative background element -->
+                    <div class="absolute -top-4 -left-4 w-full h-full bg-macaron-200/60 rounded-3xl -z-0"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Self-Check Tool Section -->
+    <section id="self-check" class="py-16 bg-white border-y border-milktea-200/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-macaron-600 font-bold text-sm tracking-widest uppercase">Self-Check Tool</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-milktea-700 mt-1">看看您或家裡長輩是否有這些狀況？</h2>
+                <p class="text-milktea-600 text-sm sm:text-base mt-2">點選符合的項目，讓我們給您一些親切的建議喔！</p>
+            </div>
+
+            <div class="bg-milktea-50 rounded-3xl p-6 sm:p-8 soft-shadow border border-milktea-200">
+                <!-- Tabs -->
+                <div class="flex justify-center mb-6 space-x-2 border-b border-milktea-200 pb-4">
+                    <button id="tabSwallow" onclick="switchCheckTab('swallow')" class="px-5 py-2.5 rounded-xl font-medium transition-all bg-macaron-500 text-white shadow-sm">
+                        <i class="fa-solid fa-utensils mr-2"></i>吞嚥狀況檢測
+                    </button>
+                    <button id="tabSpeech" onclick="switchCheckTab('speech')" class="px-5 py-2.5 rounded-xl font-medium transition-all text-milktea-600 hover:bg-milktea-100">
+                        <i class="fa-solid fa-comment-dots mr-2"></i>語言與發音檢測
+                    </button>
+                </div>
+
+                <!-- Checkbox List: Swallow -->
+                <div id="swallowChecklist" class="space-y-3">
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">喝水或喝湯時容易卡卡咳嗽、嗆到</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">吃完飯後覺得喉嚨有痰聲或吞不乾淨的感覺</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">每一餐吃飯時間拉得很長（常常超過 45 分鐘）</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">咀嚼較硬的食物（如肉類、堅果）感到費力</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">最近莫名體重減輕或頻繁呼吸道發炎</span>
+                    </label>
+                </div>
+
+                <!-- Checkbox List: Speech -->
+                <div id="speechChecklist" class="space-y-3 hidden">
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">說話時有些音發得不夠清晰，家人常要猜意思</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">中風或腦傷後，一時想不起詞彙，表達卡住</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">講話音量越來越小聲，或說兩句話就覺得嗓音沙啞</span>
+                    </label>
+                    <label class="flex items-center p-3.5 bg-white rounded-2xl border border-milktea-200/80 cursor-pointer hover:border-macaron-300 transition-all">
+                        <input type="checkbox" class="check-item w-5 h-5 accent-macaron-500 rounded" onchange="calculateScore()">
+                        <span class="ml-3 text-sm sm:text-base text-milktea-700">小朋友說話含糊不清（如：把「大象」講成「大醬」）</span>
+                    </label>
+                </div>
+
+                <!-- Dynamic Result Box -->
+                <div id="checkResult" class="mt-6 p-4 rounded-2xl bg-macaron-100/70 border border-macaron-200 text-milktea-700 text-center transition-all">
+                    <p class="font-medium text-base text-macaron-700">勾選上方項目，了解專屬建議～</p>
+                    <p class="text-xs text-milktea-600 mt-1">（備註：此檢測為自我觀察參考，詳細情況歡迎至工作室由治療師評估）</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-milktea-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-macaron-600 font-bold text-sm tracking-widest uppercase">Our Services</span>
+                <h2 class="text-3xl font-bold text-milktea-700 mt-1">我們的溫馨陪伴項目</h2>
+                <p class="text-milktea-600 mt-2">針對個人狀況客製化練習，不給壓力，像朋友一樣陪您建立信心！</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: 吞嚥復健 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">吞嚥機能復健</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        解決喝水嗆到、食物吞不乾淨或咀嚼無力的困擾。透過安全吞嚥姿勢指導與口肌微運動，讓吃飯再次成為享受！
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 安全進食姿勢訓練</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 食物質地轉換建議</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 喉部肌肉肌力提升</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: 成人語言與失語症 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-milktea-100 text-milktea-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">成人語言與失語症</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        陪伴中風、腦傷或退化後想找回溝通能力的家人。循序漸進練習詞彙尋找、語句表達與聽理解，找回溝通的樂趣。
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 實用日常生活對話</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 輔助溝通工具引導 (AAC)</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 家屬衛教與溝通技巧</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: 構音與清晰度 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">構音清晰度與正音</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        說話含糊不清、構音異常（俗稱臭乳呆）或舌頭力量不足？我們用有趣無負擔的方式，擺正發音位置！
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 構音位置定位引導</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 兒童遊戲化語言互動</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 舌頭與唇部協調練習</li>
+                    </ul>
+                </div>
+
+                <!-- Card 4: 嗓音保健與保養 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-milktea-100 text-milktea-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">嗓音復健與保養</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        長時間說話容易沙啞、用聲過度或聲帶結節問題。學習輕鬆發聲技巧，讓聲音不再緊繃疲累。
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 腹式呼吸與放鬆練習</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 聲帶共鳴優化</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 居家日常衛教提醒</li>
+                    </ul>
+                </div>
+
+                <!-- Card 5: 兒童語言發展 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-child"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">兒童語言發展誘發</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        寶貝開口比較慢？詞彙表達少？透過繪本、遊戲引導，打造好玩的語言學習環境，打開表達開關。
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 遊戲中學語言</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 親子互動溝通指導</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 社交互動與理解</li>
+                    </ul>
+                </div>
+
+                <!-- Card 6: 居家吞嚥指導 -->
+                <div class="bg-white rounded-3xl p-6 border border-milktea-200/80 soft-shadow hover:-translate-y-1 transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-milktea-100 text-milktea-600 flex items-center justify-center text-2xl mb-5">
+                        <i class="fa-solid fa-house-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-milktea-700 mb-2">家屬與照護者諮詢</h3>
+                    <p class="text-milktea-600 text-sm leading-relaxed mb-4">
+                        照顧長輩吃飯總是心驚膽跳？我們手把手教您如何準備合適的餐點質地與安全餵食技巧。
+                    </p>
+                    <ul class="text-xs text-milktea-600 space-y-1.5 border-t border-milktea-100 pt-3">
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 照護心理支持與陪伴</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 濃稠劑使用與配方調整</li>
+                        <li><i class="fa-solid fa-check text-macaron-500 mr-1.5"></i> 一對一現場諮詢</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Tips Cards Section -->
+    <section id="tips" class="py-16 bg-macaron-50/60 border-y border-macaron-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                <div>
+                    <span class="text-macaron-600 font-bold text-sm tracking-widest uppercase">Daily Care Tips</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-milktea-700 mt-1">語治不嘻嘻・日常溫馨小提醒</h2>
+                </div>
+                <p class="text-milktea-600 text-sm mt-2 md:mt-0">在家也可以輕鬆練習的護護心法 ✨</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tip 1 -->
+                <div class="bg-white rounded-3xl p-6 border border-macaron-200/80 shadow-sm relative overflow-hidden">
+                    <div class="text-xs font-bold text-macaron-600 bg-macaron-100 w-max px-3 py-1 rounded-full mb-3">吞嚥好習慣 💧</div>
+                    <h4 class="font-bold text-lg text-milktea-700 mb-2">喝水時記得「稍微收下巴」</h4>
+                    <p class="text-sm text-milktea-600 leading-relaxed">
+                        喝水時頭不要往後仰喔！稍微把下巴微收，氣道會被更好地保護起來，能大大減少液體嗆入的機率！
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-milktea-100 text-xs text-macaron-600 font-medium flex items-center">
+                        <i class="fa-solid fa-lightbulb mr-1.5"></i> 熟客小撇步：可用吸管或小一口的杯子試試！
+                    </div>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="bg-white rounded-3xl p-6 border border-macaron-200/80 shadow-sm relative overflow-hidden">
+                    <div class="text-xs font-bold text-macaron-600 bg-macaron-100 w-max px-3 py-1 rounded-full mb-3">口肌小運動 👅</div>
+                    <h4 class="font-bold text-lg text-milktea-700 mb-2">飯前 3 分鐘「舌頭頂氣球」</h4>
+                    <p class="text-sm text-milktea-600 leading-relaxed">
+                        吃飯前，用舌頭頂一頂左頰、右頰，像吹氣球一樣。讓口部肌肉先「暖身」，等等咀嚼食物就會更俐落！
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-milktea-100 text-xs text-macaron-600 font-medium flex items-center">
+                        <i class="fa-solid fa-lightbulb mr-1.5"></i> 熟客小撇步：每天飯前做 5 次，肌肉不黏糊！
+                    </div>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="bg-white rounded-3xl p-6 border border-macaron-200/80 shadow-sm relative overflow-hidden">
+                    <div class="text-xs font-bold text-macaron-600 bg-macaron-100 w-max px-3 py-1 rounded-full mb-3">溝通不著急 💬</div>
+                    <h4 class="font-bold text-lg text-milktea-700 mb-2">「給他 5 秒鐘」的溫柔留白</h4>
+                    <p class="text-sm text-milktea-600 leading-relaxed">
+                        當家人找不出詞彙時，請別急著幫他接話。拍拍他的手，耐心等個 5 秒鐘，讓他自己說出來，信心會大增喔！
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-milktea-100 text-xs text-macaron-600 font-medium flex items-center">
+                        <i class="fa-solid fa-lightbulb mr-1.5"></i> 熟客小撇步：眼神鼓勵比替他回答更溫暖！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-macaron-600 font-bold text-sm tracking-widest uppercase">FAQ</span>
+                <h2 class="text-3xl font-bold text-milktea-700 mt-1">熟客常問的溫馨解答</h2>
+                <p class="text-milktea-600 mt-2">首次預約別緊張，我們都幫您準備好心靈準備囉！</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="border border-milktea-200 rounded-2xl overflow-hidden bg-milktea-50/50">
+                    <button onclick="toggleFaq('faq1')" class="w-full text-left p-5 font-bold text-milktea-700 flex justify-between items-center hover:bg-milktea-100/60 transition-colors">
+                        <span>Q1: 第一次來工作室，會做些什麼呢？</span>
+                        <i id="faq1-icon" class="fa-solid fa-chevron-down text-macaron-600 transition-transform"></i>
+                    </button>
+                    <div id="faq1" class="hidden px-5 pb-5 text-sm text-milktea-600 leading-relaxed border-t border-milktea-200/50 pt-3">
+                        第一次見面我們會像朋友一樣輕鬆聊天！我們會先了解您或家人的日常進食或說話狀況，做一個輕鬆無壓力的初步評估，並討論出最適合您的個別化練習計畫，完全不用緊張喔！
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="border border-milktea-200 rounded-2xl overflow-hidden bg-milktea-50/50">
+                    <button onclick="toggleFaq('faq2')" class="w-full text-left p-5 font-bold text-milktea-700 flex justify-between items-center hover:bg-milktea-100/60 transition-colors">
+                        <span>Q2: 長輩吞嚥容易咳嗽，需要準備什麼資料來嗎？</span>
+                        <i id="faq2-icon" class="fa-solid fa-chevron-down text-macaron-600 transition-transform"></i>
+                    </button>
+                    <div id="faq2" class="hidden px-5 pb-5 text-sm text-milktea-600 leading-relaxed border-t border-milktea-200/50 pt-3">
+                        如果有醫院的診斷證明、吞嚥攝影報告（VFSS）或目前正在吃的食物質地照片，帶過來會非常有幫助！如果沒有也沒關係，把平時最常卡住或嗆到的食物類別告訴我們就可以囉。
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="border border-milktea-200 rounded-2xl overflow-hidden bg-milktea-50/50">
+                    <button onclick="toggleFaq('faq3')" class="w-full text-left p-5 font-bold text-milktea-700 flex justify-between items-center hover:bg-milktea-100/60 transition-colors">
+                        <span>Q3: 大概需要練習多久才能看到改善呢？</span>
+                        <i id="faq3-icon" class="fa-solid fa-chevron-down text-macaron-600 transition-transform"></i>
+                    </button>
+                    <div id="faq3" class="hidden px-5 pb-5 text-sm text-milktea-600 leading-relaxed border-t border-milktea-200/50 pt-3">
+                        每個人的身體狀況跟進度都是獨一無二的～通常持續配合每週的專業評估與居家小練習，大約 4-8 週就能感受到進步！我們會定期跟您一起回顧成果，調整最舒適的步調。
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="border border-milktea-200 rounded-2xl overflow-hidden bg-milktea-50/50">
+                    <button onclick="toggleFaq('faq4')" class="w-full text-left p-5 font-bold text-milktea-700 flex justify-between items-center hover:bg-milktea-100/60 transition-colors">
+                        <span>Q4: 家屬可以在旁邊陪同嗎？</span>
+                        <i id="faq4-icon" class="fa-solid fa-chevron-down text-macaron-600 transition-transform"></i>
+                    </button>
+                    <div id="faq4" class="hidden px-5 pb-5 text-sm text-milktea-600 leading-relaxed border-t border-milktea-200/50 pt-3">
+                        非常歡迎！我們工作室設有非常溫馨的陪同座。家屬一起參與，學習日常照護與鼓勵技巧，能讓練習效果加倍喔！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Booking Section -->
+    <section id="contact" class="py-16 md:py-24 bg-milktea-100/60 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-macaron-600 font-bold text-sm tracking-widest uppercase">Contact Us</span>
+                    <h2 class="text-3xl font-bold text-milktea-700">來坐坐吧！<br>我們一直在這裡</h2>
+                    <p class="text-milktea-600 text-sm leading-relaxed">
+                        有任何問題，或只是想先打個招呼了解一下，都歡迎直接留個訊息給我們，我們會儘速親切地回覆您喔！
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-center space-x-4 bg-white p-4 rounded-2xl border border-milktea-200/80 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-milktea-500 font-medium">工作室地址</p>
+                                <p class="text-sm font-bold text-milktea-700">溫馨預約制・私人關懷空間</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 bg-white p-4 rounded-2xl border border-milktea-200/80 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-milktea-500 font-medium">聯絡電話</p>
+                                <p class="text-sm font-bold text-milktea-700">0912-345-678 (專人親切接聽)</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 bg-white p-4 rounded-2xl border border-milktea-200/80 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-macaron-100 text-macaron-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-milktea-500 font-medium">開放陪伴時間</p>
+                                <p class="text-sm font-bold text-milktea-700">週一至週六 09:30 - 18:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="lg:col-span-7">
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 soft-shadow border border-milktea-200">
+                        <h3 class="text-xl font-bold text-milktea-700 mb-2">線上預約諮詢小表單</h3>
+                        <p class="text-xs text-milktea-500 mb-6">填寫基本資料，讓我們初步了解您的狀況～</p>
+
+                        <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-milktea-700 mb-1">怎麼稱呼您？ *</label>
+                                    <input type="text" required placeholder="例如：王小明先生 / 陳阿姨" class="w-full px-4 py-3 rounded-xl bg-milktea-50 border border-milktea-200 focus:outline-none focus:border-macaron-400 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-milktea-700 mb-1">聯絡電話 *</label>
+                                    <input type="tel" required placeholder="例如：0912345678" class="w-full px-4 py-3 rounded-xl bg-milktea-50 border border-milktea-200 focus:outline-none focus:border-macaron-400 text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-milktea-700 mb-1">想了解的陪伴項目</label>
+                                    <select class="w-full px-4 py-3 rounded-xl bg-milktea-50 border border-milktea-200 focus:outline-none focus:border-macaron-400 text-sm text-milktea-700">
+                                        <option>吞嚥機能復健</option>
+                                        <option>成人語言與失語症</option>
+                                        <option>構音清晰度與正音</option>
+                                        <option>嗓音復健與保養</option>
+                                        <option>兒童語言發展誘發</option>
+                                        <option>照護者一對一諮詢</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-milktea-700 mb-1">方便接聽電話的時間</label>
+                                    <select class="w-full px-4 py-3 rounded-xl bg-milktea-50 border border-milktea-200 focus:outline-none focus:border-macaron-400 text-sm text-milktea-700">
+                                        <option>隨時皆可</option>
+                                        <option>早上 (09:30 - 12:00)</option>
+                                        <option>下午 (14:00 - 18:00)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-milktea-700 mb-1">想跟我們說的狀況或問題 (選填)</label>
+                                <textarea rows="3" placeholder="例如：長輩喝水容易嗆到、講話有點不清楚..." class="w-full px-4 py-3 rounded-xl bg-milktea-50 border border-milktea-200 focus:outline-none focus:border-macaron-400 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-macaron-500 hover:bg-macaron-600 text-white font-bold py-3.5 rounded-xl shadow-md transition-all text-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> 送出表單，期待與您碰面！
+                            </button>
+                        </form>
+
+                        <div id="formSuccess" class="hidden p-4 rounded-xl bg-macaron-100 text-macaron-700 text-center font-medium text-sm border border-macaron-200 mt-4">
+                            <i class="fa-solid fa-circle-check text-lg mr-2"></i> 訊息已收到囉！我們很快會主動跟您聯絡，祝您今天順心～
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-milktea-700 text-milktea-100 py-12 border-t border-milktea-600">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+                <!-- Studio Brand -->
+                <div>
+                    <div class="flex items-center justify-center md:justify-start space-x-3 mb-2">
+                        <div class="w-8 h-8 rounded-xl bg-macaron-400 text-white flex items-center justify-center text-base font-bold">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white tracking-wide">語治不嘻嘻</span>
+                    </div>
+                    <p class="text-xs text-milktea-300">專業嚴謹的復健用心・親切如初的溫暖陪伴</p>
+                </div>
+
+                <!-- Links -->
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-milktea-200">
+                    <a href="#about" class="hover:text-macaron-300 transition-colors">關於我們</a>
+                    <a href="#services" class="hover:text-macaron-300 transition-colors">陪伴項目</a>
+                    <a href="#self-check" class="hover:text-macaron-300 transition-colors">自我檢測</a>
+                    <a href="#faq" class="hover:text-macaron-300 transition-colors">常見問題</a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-milktea-600/60 flex flex-col sm:flex-row justify-between items-center text-xs text-milktea-300 gap-3">
+                <p>&copy; 2026 語治不嘻嘻 版權所有．保留一切權利。</p>
+                <!-- Requested signature -->
+                <p class="text-macaron-300 font-medium">製作：語制涼涼了</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tab Switching for Self Check
+        function switchCheckTab(tab) {
+            const tabSwallow = document.getElementById('tabSwallow');
+            const tabSpeech = document.getElementById('tabSpeech');
+            const swallowChecklist = document.getElementById('swallowChecklist');
+            const speechChecklist = document.getElementById('speechChecklist');
+
+            if (tab === 'swallow') {
+                tabSwallow.className = 'px-5 py-2.5 rounded-xl font-medium transition-all bg-macaron-500 text-white shadow-sm';
+                tabSpeech.className = 'px-5 py-2.5 rounded-xl font-medium transition-all text-milktea-600 hover:bg-milktea-100';
+                swallowChecklist.classList.remove('hidden');
+                speechChecklist.classList.add('hidden');
+            } else {
+                tabSpeech.className = 'px-5 py-2.5 rounded-xl font-medium transition-all bg-macaron-500 text-white shadow-sm';
+                tabSwallow.className = 'px-5 py-2.5 rounded-xl font-medium transition-all text-milktea-600 hover:bg-milktea-100';
+                speechChecklist.classList.remove('hidden');
+                swallowChecklist.classList.add('hidden');
+            }
+            calculateScore();
+        }
+
+        // Score Calculation & Guidance for Self Check
+        function calculateScore() {
+            const activeChecklist = document.querySelector('#swallowChecklist.hidden') ? document.querySelectorAll('#speechChecklist .check-item:checked') : document.querySelectorAll('#swallowChecklist .check-item:checked');
+            const resultBox = document.getElementById('checkResult');
+            const checkedCount = activeChecklist.length;
+
+            if (checkedCount === 0) {
+                resultBox.innerHTML = `
+                    <p class="font-medium text-base text-macaron-700">勾選上方項目，了解專屬建議～</p>
+                    <p class="text-xs text-milktea-600 mt-1">（備註：此檢測為自我觀察參考，詳細情況歡迎至工作室由治療師評估）</p>
+                `;
+            } else if (checkedCount <= 2) {
+                resultBox.innerHTML = `
+                    <p class="font-bold text-base text-macaron-700">✨ 狀況還算輕微，別太擔心喔！</p>
+                    <p class="text-xs text-milktea-600 mt-1">平時進食或說話時多留意放慢速度。如果偶爾覺得吃力，可以隨時諮詢我們的日常保養建議。</p>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <p class="font-bold text-base text-milktea-700">🍵 建議來工作室喝杯茶、做個詳細評估！</p>
+                    <p class="text-xs text-milktea-600 mt-1">符合項數較多時，提早介入復健可以大幅提升生活品質與飲食安全喔！我們都在這裡陪您～</p>
+                `;
+            }
+        }
+
+        // FAQ Toggle Logic
+        function toggleFaq(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('bookingForm');
+            const success = document.getElementById('formSuccess');
+            form.reset();
+            success.classList.remove('hidden');
+            setTimeout(() => {
+                success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
