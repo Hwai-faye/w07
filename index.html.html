@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>語治不嘻嘻 | 語言發展與吞嚥照護線上服務站</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts (Noto Sans TC) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            macaron: {
+              50: '#F0F9F4',
+              100: '#D8F2E3',
+              200: '#B2E5C7',
+              300: '#8AD8AB',
+              400: '#62CB8F',
+              500: '#46B27A',
+              600: '#338D5E',
+              700: '#266A46',
+            },
+            milktea: {
+              bg: '#FDFBF7',        // 柔奶茶底色
+              card: '#FFFFFF',
+              50: '#FAF6F0',        // 奶泡淺色
+              100: '#F3EBE1',       // 奶茶淡影
+              200: '#E6D5C3',       // 烘焙奶茶
+              300: '#D5BDA6',
+              400: '#C3A588',       // 濃郁奶茶
+              500: '#B08C6B',       // 主色調焦糖奶茶
+              600: '#8C6C4F',       // 深茶色
+              700: '#5A4535',       // 溫和深褐文字
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Sans TC', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(176, 140, 107, 0.08)',
+            'hover': '0 12px 35px rgba(70, 178, 122, 0.18)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #5A4535;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background-color: #FFFFFF !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-macaron-200">
+
+  <!-- 主導覽列 / Navigation Header -->
+  <header class="bg-white/90 backdrop-blur-md border-b border-milktea-200 sticky top-0 z-50 no-print">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+      
+      <!-- Logo 區域 -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchMainSection('section-child')">
+        <div class="w-10 h-10 rounded-2xl bg-macaron-100 flex items-center justify-center text-macaron-600 font-bold text-xl shadow-sm">
+          <i class="fa-solid fa-face-smile-beam"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-milktea-700 leading-tight flex items-center gap-2">
+            語治不嘻嘻
+            <span class="text-xs bg-macaron-100 text-macaron-600 px-2.5 py-0.5 rounded-full font-medium">言語與吞嚥工作室</span>
+          </h1>
+          <p class="text-xs text-milktea-400">Speech, Language & Swallowing Therapy Studio</p>
+        </div>
+      </div>
+
+      <!-- 導覽頁籤 / Navigation Tabs -->
+      <nav class="flex items-center gap-1.5 bg-milktea-50 p-1.5 rounded-2xl border border-milktea-200 text-xs font-semibold">
+        <button id="nav-btn-child" onclick="switchMainSection('section-child')" class="px-3.5 py-2 rounded-xl transition-all duration-200 bg-macaron-500 text-white shadow-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-child-reaching"></i> 兒童語言換算器
+        </button>
+        <button id="nav-btn-swallow" onclick="switchMainSection('section-swallow')" class="px-3.5 py-2 rounded-xl transition-all duration-200 text-milktea-600 hover:bg-milktea-100 flex items-center gap-1.5">
+          <i class="fa-solid fa-mug-hot"></i> 吞嚥照護與進食助手
+        </button>
+        <button id="nav-btn-about" onclick="switchMainSection('section-about')" class="px-3.5 py-2 rounded-xl transition-all duration-200 text-milktea-600 hover:bg-milktea-100 flex items-center gap-1.5">
+          <i class="fa-solid fa-heart"></i> 關於我們 & 預約
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- 主要內容區 / Main Container -->
+  <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-grow">
+
+    <!-- ==================== 區塊一：兒童語言發展換算器 ==================== -->
+    <section id="section-child" class="space-y-6">
+      
+      <!-- 頂部親切歡迎標語 -->
+      <div class="bg-gradient-to-r from-macaron-50 via-milktea-50 to-milktea-100/60 rounded-3xl p-5 border border-milktea-200 shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h2 class="text-base font-bold text-milktea-700 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-macaron-500"></i>
+            「嗨！今天想幫寶貝算算看語言發展嗎？」
+          </h2>
+          <p class="text-xs md:text-sm text-milktea-600">
+            不用擔心喔～選擇最適合你的換算方式，按一下按鈕，我們幫你整理好 0-12 歲的發展指標！
+          </p>
+        </div>
+        <div class="flex gap-2 w-full md:w-auto">
+          <button onclick="switchChildTab('tab-age')" id="btn-tab-age" class="flex-1 md:flex-initial px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 bg-macaron-500 text-white shadow-sm">
+            <i class="fa-solid fa-cake-candles mr-1"></i> 按年齡換算
+          </button>
+          <button onclick="switchChildTab('tab-checklist')" id="btn-tab-checklist" class="flex-1 md:flex-initial px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 bg-white text-milktea-600 border border-milktea-200 hover:bg-milktea-50">
+            <i class="fa-solid fa-list-check mr-1"></i> 按能力勾選
+          </button>
+          <button onclick="switchChildTab('tab-mlu')" id="btn-tab-mlu" class="flex-1 md:flex-initial px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 bg-white text-milktea-600 border border-milktea-200 hover:bg-milktea-50">
+            <i class="fa-solid fa-comments mr-1"></i> 按字數 (MLU)
+          </button>
+        </div>
+      </div>
+
+      <!-- 換算器內容區 Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- 左側：輸入控制面板 (5欄) -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-milktea-200 shadow-soft flex flex-col justify-between">
+          
+          <!-- 模式一：按年齡 -->
+          <div id="mode-age" class="space-y-5">
+            <div class="border-b border-milktea-100 pb-3">
+              <h3 class="font-bold text-milktea-700 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-macaron-500"></span>
+                告訴我們寶貝現在幾歲了？
+              </h3>
+              <p class="text-xs text-milktea-400 mt-1">填寫生理年齡，比對同齡語言里程碑</p>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-milktea-600 mb-1.5">寶貝暱稱 / 名字 (可不填)</label>
+              <input type="text" id="child-name" placeholder="例如：小寶、阿妹" class="w-full px-4 py-2.5 rounded-2xl border border-milktea-200 focus:border-macaron-400 focus:ring-2 focus:ring-macaron-100 outline-none text-sm transition">
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-xs font-medium text-milktea-600">寶貝實歲</label>
+                <span class="text-xs text-macaron-600 cursor-pointer hover:underline" onclick="toggleAgeInputType()" id="input-type-toggle">改用「生日」計算</span>
+              </div>
+
+              <div id="direct-age-input" class="grid grid-cols-2 gap-3">
+                <div class="relative">
+                  <input type="number" id="input-years" min="0" max="12" value="2" class="w-full px-4 py-2.5 rounded-2xl border border-milktea-200 focus:border-macaron-400 focus:ring-2 focus:ring-macaron-100 outline-none text-sm font-semibold pr-8 text-milktea-700">
+                  <span class="absolute right-3 top-2.5 text-xs text-milktea-400">歲</span>
+                </div>
+                <div class="relative">
+                  <input type="number" id="input-months" min="0" max="11" value="6" class="w-full px-4 py-2.5 rounded-2xl border border-milktea-200 focus:border-macaron-400 focus:ring-2 focus:ring-macaron-100 outline-none text-sm font-semibold pr-8 text-milktea-700">
+                  <span class="absolute right-3 top-2.5 text-xs text-milktea-400">個月</span>
+                </div>
+              </div>
+
+              <div id="birth-date-input" class="hidden">
+                <input type="date" id="input-birthdate" class="w-full px-4 py-2.5 rounded-2xl border border-milktea-200 focus:border-macaron-400 focus:ring-2 focus:ring-macaron-100 outline-none text-sm text-milktea-700">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-milktea-400 mb-2">常用年齡快選：</label>
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="setQuickAge(1, 6)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">1歲半</button>
+                <button onclick="setQuickAge(2, 6)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">2歲半</button>
+                <button onclick="setQuickAge(4, 0)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">4歲</button>
+                <button onclick="setQuickAge(6, 0)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">6歲</button>
+                <button onclick="setQuickAge(8, 0)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">8歲</button>
+                <button onclick="setQuickAge(10, 0)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">10歲</button>
+                <button onclick="setQuickAge(12, 0)" class="px-2.5 py-1 text-xs rounded-xl bg-milktea-50 hover:bg-milktea-100 border border-milktea-200 text-milktea-700 transition">12歲</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 模式二：按能力勾選 -->
+          <div id="mode-checklist" class="hidden space-y-4">
+            <div class="border-b border-milktea-100 pb-2">
+              <h3 class="font-bold text-milktea-700 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-macaron-500"></span>
+                勾選寶貝目前擁有的最高能力
+              </h3>
+              <p class="text-xs text-milktea-400">系統將依此估算出相當的語言發展年齡</p>
+            </div>
+            <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar" id="checklist-items">
+              <!-- JS 動態生成 -->
+            </div>
+          </div>
+
+          <!-- 模式三：按 MLU 語長 -->
+          <div id="mode-mlu" class="hidden space-y-4">
+            <div class="border-b border-milktea-100 pb-2">
+              <h3 class="font-bold text-milktea-700 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-macaron-500"></span>
+                寶貝平常一說話大概幾個字？
+              </h3>
+              <p class="text-xs text-milktea-400">平均單句語長 (Mean Length of Utterance)</p>
+            </div>
+            <div class="bg-milktea-50 p-4 rounded-2xl border border-milktea-200 space-y-3">
+              <label class="block text-xs font-medium text-milktea-700">滑動調整平均字數：</label>
+              <div class="flex items-center gap-3">
+                <input type="range" id="input-mlu-range" min="1.0" max="8.0" step="0.1" value="2.5" oninput="syncMluValue(this.value)" class="w-full accent-macaron-500 cursor-pointer">
+                <span id="mlu-value-display" class="font-bold text-lg text-macaron-600 bg-white px-3 py-1 rounded-xl border border-macaron-200">2.5 字</span>
+              </div>
+              <p class="text-xs text-milktea-600">例如：「媽媽抱抱」(4字)、「這是我最喜歡的玩偶」(8字)。</p>
+            </div>
+          </div>
+
+          <!-- 換算按鈕 -->
+          <div class="pt-6">
+            <button onclick="calculateLanguageAge()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-macaron-500 to-macaron-600 hover:from-macaron-600 hover:to-macaron-700 text-white font-bold text-base shadow-hover transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-calculator"></i>
+              一鍵進行發展換算
+            </button>
+            <p class="text-center text-[11px] text-milktea-400 mt-2">✨ 語治不嘻嘻陪你一起了解寶貝溝通發展</p>
+          </div>
+
+        </div>
+
+        <!-- 右側：結果摘要面板 (7欄) -->
+        <div class="lg:col-span-7 space-y-5">
+          <div id="result-card" class="bg-white rounded-3xl p-6 border border-milktea-200 shadow-soft transition-all duration-300">
+            
+            <div class="flex items-center justify-between border-b border-milktea-100 pb-4 mb-4">
+              <div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-macaron-100 text-macaron-600">
+                  語治不嘻嘻 評估對照表
+                </span>
+                <h3 class="text-xl font-bold text-milktea-700 mt-1" id="res-child-title">
+                  寶貝語言發展摘要
+                </h3>
+              </div>
+              <button onclick="window.print()" class="no-print text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-milktea-200 hover:bg-milktea-50 text-milktea-600 transition">
+                <i class="fa-solid fa-print"></i> 印出報告
+              </button>
+            </div>
+
+            <!-- 三大指標對照 -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+              <div class="bg-milktea-50 p-4 rounded-2xl border border-milktea-200 text-center">
+                <span class="text-xs text-milktea-600 font-medium">實際生理年齡 (CA)</span>
+                <div class="text-2xl font-black text-milktea-700 my-1" id="res-ca-text">2歲6個月</div>
+                <span class="text-[10px] text-milktea-400" id="res-ca-months">(相當於 30 個月)</span>
+              </div>
+
+              <div class="bg-macaron-50 p-4 rounded-2xl border border-macaron-200 text-center relative overflow-hidden">
+                <span class="text-xs text-macaron-600 font-bold">對應語言年齡 (LA)</span>
+                <div class="text-2xl font-black text-macaron-600 my-1" id="res-la-text">24 - 30 個月</div>
+                <span class="text-[10px] text-macaron-600 font-medium" id="res-la-range">約 2歲 - 2歲6個月</span>
+              </div>
+
+              <div class="bg-milktea-100/60 p-4 rounded-2xl border border-milktea-200 text-center">
+                <span class="text-xs text-milktea-600 font-bold">目標平均語長 (MLU)</span>
+                <div class="text-2xl font-black text-milktea-600 my-1" id="res-mlu-text">2.0 - 2.5 字</div>
+                <span class="text-[10px] text-milktea-400">典型語句長度</span>
+              </div>
+            </div>
+
+            <!-- 狀態提示 -->
+            <div class="mb-5 p-3.5 rounded-2xl bg-milktea-50 border border-milktea-200 flex items-center justify-between" id="status-banner">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-macaron-500 text-white flex items-center justify-center text-sm font-bold" id="status-icon">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-milktea-400">同齡發展常模對照</div>
+                  <div class="text-sm font-bold text-milktea-700" id="status-title">指標資料查詢完成囉！</div>
+                </div>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-white border border-macaron-300 text-macaron-600" id="status-tag">溫馨參考</span>
+            </div>
+
+            <!-- 四大發展面向 -->
+            <div class="space-y-4">
+              <h4 class="font-bold text-sm text-milktea-700 flex items-center gap-2">
+                <i class="fa-solid fa-seedling text-macaron-500"></i>
+                【此階段典型發展里程碑】
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="p-3.5 rounded-2xl bg-milktea-50/50 border border-milktea-100 space-y-1">
+                  <div class="font-bold text-milktea-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span> 語言理解 (Receptive)
+                  </div>
+                  <p class="text-milktea-600 leading-relaxed" id="res-receptive-desc">--</p>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-milktea-50/50 border border-milktea-100 space-y-1">
+                  <div class="font-bold text-milktea-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-macaron-500"></span> 口語表達 (Expressive)
+                  </div>
+                  <p class="text-milktea-600 leading-relaxed" id="res-expressive-desc">--</p>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-milktea-50/50 border border-milktea-100 space-y-1">
+                  <div class="font-bold text-milktea-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-milktea-500"></span> 構音與清晰度 (Articulation)
+                  </div>
+                  <p class="text-milktea-600 leading-relaxed" id="res-speech-desc">--</p>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-milktea-50/50 border border-milktea-100 space-y-1">
+                  <div class="font-bold text-milktea-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-purple-400"></span> 社交與互動 (Social)
+                  </div>
+                  <p class="text-milktea-600 leading-relaxed" id="res-social-desc">--</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Applebee 敘事階段 -->
+            <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-milktea-100/70 to-milktea-50 border border-milktea-200">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
+                <h4 class="font-bold text-sm text-milktea-700 flex items-center gap-2">
+                  <i class="fa-solid fa-book-open-reader text-milktea-500"></i>
+                  Applebee 敘事發展階段 (Narrative Stage)
+                </h4>
+                <span class="self-start sm:self-auto text-xs bg-white text-milktea-600 px-2.5 py-0.5 rounded-full font-bold border border-milktea-200" id="res-applebee-stage">--</span>
+              </div>
+              <p class="text-xs text-milktea-600 leading-relaxed" id="res-applebee-desc">--</p>
+            </div>
+
+            <!-- 居家互動小撇步 -->
+            <div class="mt-5 pt-4 border-t border-milktea-100">
+              <h4 class="font-bold text-sm text-milktea-700 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-lightbulb text-macaron-500"></i>
+                語治不嘻嘻【居家語言引導技巧】
+              </h4>
+              <div class="bg-macaron-50/60 p-3.5 rounded-2xl border border-macaron-200 text-xs text-milktea-700 leading-relaxed" id="res-guidance-tips">
+                --
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 區塊二：吞嚥照護與進食分級助手 ==================== -->
+    <section id="section-swallow" class="hidden space-y-6">
+      
+      <!-- 頂部歡迎 Banner -->
+      <div class="bg-gradient-to-r from-milktea-100 via-milktea-50 to-macaron-50 rounded-3xl p-5 border border-milktea-200 shadow-soft">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-base font-bold text-milktea-700 flex items-center gap-2">
+              <i class="fa-solid fa-mug-hot text-milktea-500"></i>
+              「吃東西經常嗆到嗎？我們陪你一起關心吞嚥安全」
+            </h2>
+            <p class="text-xs md:text-sm text-milktea-600 mt-1">
+              不論是長者退化、中風復健、頭頸癌後或是神經性疾病，吞嚥困難都可以透過質地調整與訓練改善喔！
+            </p>
+          </div>
+          <span class="text-xs font-semibold bg-white px-3 py-1.5 rounded-full border border-milktea-200 text-milktea-600 shadow-sm">
+            IDDSI 國際標準對照
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- 左側：吞嚥安全警訊自我檢核卡 (5欄) -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-milktea-200 shadow-soft space-y-5">
+          <div class="border-b border-milktea-100 pb-3">
+            <h3 class="font-bold text-milktea-700 flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-check text-macaron-500"></i>
+              進食吞嚥安全自我檢核
+            </h3>
+            <p class="text-xs text-milktea-400 mt-1">勾選您或家人近一個月內出現的狀況：</p>
+          </div>
+
+          <div class="space-y-2.5 text-xs text-milktea-700" id="swallow-checklist">
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="1">
+              <span>喝水或喝湯時容易發嗆或咳嗽</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="2">
+              <span>吃完東西後聲音變濕啞、有痰音</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="3">
+              <span>一頓飯要吃超過 30-40 分鐘以上</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="4">
+              <span>食物經常殘留在嘴巴裡面吞不乾淨</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="5">
+              <span>覺得食物常卡在喉嚨落不下去</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+              <input type="checkbox" class="swallow-check accent-macaron-500 w-4 h-4" value="6">
+              <span>近期有不明原因發燒或吸入性肺炎紀錄</span>
+            </label>
+          </div>
+
+          <button onclick="evaluateSwallowRisk()" class="w-full py-3 px-5 rounded-2xl bg-milktea-500 hover:bg-milktea-600 text-white font-bold text-xs shadow-md transition">
+            <i class="fa-solid fa-heart-pulse mr-1"></i> 評估吞嚥安全風險
+          </button>
+
+          <!-- 評估結果區塊 -->
+          <div id="swallow-result-box" class="hidden p-4 rounded-2xl bg-milktea-50 border border-milktea-200 text-xs space-y-2">
+            <div class="font-bold text-milktea-700 flex items-center gap-2" id="swallow-risk-title">
+              評估結果
+            </div>
+            <p class="text-milktea-600 leading-relaxed" id="swallow-risk-desc">
+              --
+            </p>
+          </div>
+        </div>
+
+        <!-- 右側：IDDSI 國際吞嚥飲食分級查詢 (7欄) -->
+        <div class="lg:col-span-7 space-y-5">
+          <div class="bg-white rounded-3xl p-6 border border-milktea-200 shadow-soft space-y-5">
+            
+            <div class="border-b border-milktea-100 pb-3 flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-milktea-700 flex items-center gap-2">
+                  <i class="fa-solid fa-layer-group text-macaron-500"></i>
+                  IDDSI 國際吞嚥飲食與液體質地分級指引
+                </h3>
+                <p class="text-xs text-milktea-400 mt-1">點擊下方等級，快速了解適合的食物與液體稠度</p>
+              </div>
+            </div>
+
+            <!-- IDDSI 按鈕選擇區 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button onclick="showIDDSI(0)" class="p-2.5 rounded-xl border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 text-left">
+                Level 0 稀薄
+                <span class="block text-[10px] font-normal text-blue-500">水、清湯</span>
+              </button>
+              <button onclick="showIDDSI(2)" class="p-2.5 rounded-xl border border-green-200 bg-green-50 text-green-700 hover:bg-green-100 text-left">
+                Level 2 微稠
+                <span class="block text-[10px] font-normal text-green-500">花蜜狀 / 濃湯</span>
+              </button>
+              <button onclick="showIDDSI(3)" class="p-2.5 rounded-xl border border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100 text-left">
+                Level 3 中稠/流質
+                <span class="block text-[10px] font-normal text-yellow-600">蜂蜜狀 / 麵糊</span>
+              </button>
+              <button onclick="showIDDSI(4)" class="p-2.5 rounded-xl border border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 text-left">
+                Level 4 極濃/泥狀
+                <span class="block text-[10px] font-normal text-orange-600">果泥 / 慕斯</span>
+              </button>
+              <button onclick="showIDDSI(5)" class="p-2.5 rounded-xl border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 text-left">
+                Level 5 細碎濕潤
+                <span class="block text-[10px] font-normal text-red-500">肉末粥 / 軟餡</span>
+              </button>
+              <button onclick="showIDDSI(6)" class="p-2.5 rounded-xl border border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100 text-left">
+                Level 6 軟質一口大
+                <span class="block text-[10px] font-normal text-purple-500">香蕉 / 清蒸魚</span>
+              </button>
+              <button onclick="showIDDSI(7)" class="p-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 text-left col-span-2">
+                Level 7 普通飲食
+                <span class="block text-[10px] font-normal text-gray-500">無限制正常食物</span>
+              </button>
+            </div>
+
+            <!-- IDDSI 詳情顯示卡片 -->
+            <div id="iddsi-detail-card" class="bg-milktea-50 p-4 rounded-2xl border border-milktea-200 space-y-2 text-xs">
+              <div class="font-bold text-sm text-milktea-700 flex items-center justify-between" id="iddsi-title">
+                Level 2 微稠 (Slightly Thick)
+              </div>
+              <p class="text-milktea-600 leading-relaxed" id="iddsi-desc">
+                質地如濃湯或花蜜。使用吸管吸取時需要稍用力氣，用湯匙傾倒時會流動但較緩慢。適合喝水易輕微嗆咳的個案。
+              </p>
+              <div class="pt-2 border-t border-milktea-200 flex items-center gap-2 text-milktea-500">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span id="iddsi-tip">提示：可用市售凝固劑（增稠劑）進行調配。</span>
+              </div>
+            </div>
+
+            <!-- 進食安全四大照護法則 -->
+            <div class="p-4 rounded-2xl bg-macaron-50/70 border border-macaron-200 space-y-2">
+              <h4 class="font-bold text-xs text-macaron-700 flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-macaron-500"></i>
+                語治不嘻嘻【安全吞嚥照護 4 大原則】
+              </h4>
+              <ul class="text-xs text-milktea-700 space-y-1.5 list-disc pl-4">
+                <li><b>坐姿端正</b>：進食時務必保持 90 度直立坐姿，餐後維持坐姿至少 30 分鐘。</li>
+                <li><b>專心進食</b>：吃飯時不說話、不看電視，避免分心造成誤嚥。</li>
+                <li><b>少量多次</b>：使用小湯匙，確保上一口完全吞下後再吃下一口。</li>
+                <li><b>餐後口腔清潔</b>：進食完畢務必清潔口腔殘渣，減少吸入性肺炎風險。</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 區塊三：關於語治不嘻嘻 & 諮詢預約 ==================== -->
+    <section id="section-about" class="hidden space-y-6">
+      
+      <div class="bg-white rounded-3xl p-8 border border-milktea-200 shadow-soft text-center space-y-4 max-w-3xl mx-auto">
+        <div class="w-16 h-16 rounded-full bg-macaron-100 text-macaron-600 mx-auto flex items-center justify-center text-3xl">
+          <i class="fa-solid fa-comments text-macaron-500"></i>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-milktea-700">關於「語治不嘻嘻」</h2>
+        <p class="text-sm text-milktea-600 leading-relaxed max-w-xl mx-auto">
+          我們是一個致力於提供**親切、專業、無壓力**溝通與吞嚥照護的語言治療工作室。
+          無論是小朋友說話慢、發音不清楚，或是大人與長者因為中風、退化產生的吞嚥與表達困擾，
+          我們都希望能像老朋友一樣，陪你一起找到最適合的練習步調！
+        </p>
+
+        <!-- 服務項目卡片 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left">
+          <div class="p-4 rounded-2xl bg-milktea-50 border border-milktea-200 space-y-1">
+            <div class="font-bold text-sm text-milktea-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-child text-macaron-500"></i> 兒童語言與構音
+            </div>
+            <p class="text-xs text-milktea-400">語言發展遲緩、口齒不清、社交溝通引導。</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-milktea-50 border border-milktea-200 space-y-1">
+            <div class="font-bold text-sm text-milktea-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-user-doctor text-milktea-500"></i> 成人與長者復健
+            </div>
+            <p class="text-xs text-milktea-400">中風後失語症、嗓音復健、流利度訓練。</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-milktea-50 border border-milktea-200 space-y-1">
+            <div class="font-bold text-sm text-milktea-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-utensils text-orange-400"></i> 吞嚥照護與評估
+            </div>
+            <p class="text-xs text-milktea-400">進食嗆咳評估、IDDSI 飲食轉型、吞嚥肌群訓練。</p>
+          </div>
+        </div>
+
+        <!-- 預約諮詢小卡 -->
+        <div class="mt-6 p-6 rounded-3xl bg-gradient-to-r from-macaron-500 to-macaron-600 text-white space-y-3 shadow-hover">
+          <h3 class="text-lg font-bold flex items-center justify-center gap-2">
+            <i class="fa-solid fa-calendar-check"></i> 想要預約諮詢或聊聊嗎？
+          </h3>
+          <p class="text-xs text-macaron-100">歡迎隨時聯繫工作室，我們將為您安排專屬評估時間！</p>
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <a href="#" onclick="alert('歡迎聯繫語治不嘻嘻工作室，我們將儘速回覆您！')" class="px-5 py-2.5 rounded-xl bg-white text-macaron-600 font-bold text-xs hover:bg-macaron-50 transition shadow-sm">
+              <i class="fa-brands fa-line mr-1"></i> 加入工作室官方 LINE
+            </a>
+            <a href="#" onclick="alert('工作室服務電話：02-XXXX-XXXX')" class="px-5 py-2.5 rounded-xl bg-macaron-700 text-white font-bold text-xs hover:bg-macaron-800 transition">
+              <i class="fa-solid fa-phone mr-1"></i> 電話預約諮詢
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 頁尾 / Footer -->
+  <footer class="bg-white border-t border-milktea-200 mt-10 py-6 text-center no-print">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <p class="text-sm font-bold text-milktea-600 flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-heart text-macaron-500"></i>
+        製作：語制涼涼了
+      </p>
+      <p class="text-xs text-milktea-400">
+        <i class="fa-solid fa-circle-info mr-1"></i>
+        <b>語治不嘻嘻 溫馨提醒：</b>本線上工具與常模資料僅供自我檢測與衛教參考。如有明確之語言或吞嚥障礙疑慮，請尋求專業語言治療師進行評估。
+      </p>
+      <p class="text-[11px] text-gray-300">
+        © 語治不嘻嘻 Studio | Designed for Caring & Warmth
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript 邏輯庫 -->
+  <script>
+    // 全域變數
+    let activeChildTab = 'tab-age';
+    let isBirthDateMode = false;
+
+    // 兒童語言發展資料庫 (0-12歲 / 0-144個月)
+    const MILESTONE_DATABASE = [
+      {
+        minMonths: 0, maxMonths: 6, ageLabel: "0 - 6 個月",
+        mluText: "發聲哭泣 / 咕咕聲",
+        receptive: "對大聲音有驚跳反應，會朝向聲音來源轉頭，能聽出照顧者的溫柔語調。",
+        expressive: "會發出咕咕聲 (Cooing)、開心時發出發笑聲，用不同的哭聲表達飢餓或不適。",
+        speech: "主要為生理性發聲與哭聲，無特定清晰音節。",
+        social: "會展現社群性微笑 (Social smile)，能與照顧者進行眼神接觸 (Eye contact)。",
+        applebeeStage: "堆疊期 (Heaps)",
+        applebeeDesc: "說話內容主要由無關的感知印象堆疊，沒有中心主題或時間順序（如：看到什麼說什麼）。",
+        tips: "多跟寶貝進行眼神對視，用溫柔高亢的父母語 (Parentese) 回應寶貝發出的聲音。"
+      },
+      {
+        minMonths: 7, maxMonths: 12, ageLabel: "7 - 12 個月 (約1歲)",
+        mluText: "單音節 / 擬聲詞",
+        receptive: "聽得懂自己的名字，理解簡單情境指令（如「不行」、「過來」）及再見揮手手勢。",
+        expressive: "出現重複出現的喃喃細語 (Babbling, 如: baba, mama)，會用手勢表達（如指物、伸著要抱）。",
+        speech: "開始出現唇音（b, p, m），發音清晰度極低但豐富。",
+        social: "會玩 Peek-a-boo（躲貓貓），會主動用手勢吸引大人注意力。",
+        applebeeStage: "堆疊期 (Heaps)",
+        applebeeDesc: "故事由隨機的感知描述組成，物件之間尚未建立邏輯關係。",
+        tips: "當寶貝指著東西時，順著他的視線幫他命名（例如：「對！這是球球！」）。"
+      },
+      {
+        minMonths: 13, maxMonths: 18, ageLabel: "1 歲 - 1 歲 6 個月",
+        mluText: "1.0 - 1.5 字",
+        receptive: "能聽懂 1 步驟指令（如「把鞋子拿過來」），能指出至少 1-3 個身體部位。",
+        expressive: "說出第一個有意義的單字（如：媽媽、ㄋㄋ、狗），詞彙量達 10-20 個左右。",
+        speech: "家人可聽懂約 25% 的說話內容，多為單音節或疊字。",
+        social: "會用說話加手勢進行需求表達，會模仿大人簡單動作。",
+        applebeeStage: "序列期 (Sequences)",
+        applebeeDesc: "圍繞著一個中心事件或物件展開，但事件之間尚無因果連結（如：「狗狗、汪汪、大狗狗」）。",
+        tips: "玩遊戲時重複使用核心詞彙，多給寶貝回應的時間（等待 5 秒鐘）。"
+      },
+      {
+        minMonths: 19, maxMonths: 24, ageLabel: "1 歲 6 個月 - 2 歲",
+        mluText: "1.5 - 2.0 字",
+        receptive: "能理解 50 個以上的詞彙，聽懂包含簡單概念的指令（如：放在「裡面」）。",
+        expressive: "出現詞組結合（如「媽媽抱」、「吃餅乾」），詞彙快速爆發達 50 個以上。",
+        speech: "主要照顧者能聽懂約 50% 的內容，發音有簡化現象屬正常。",
+        social: "會主動用語言表達拒絕（如「不要」），能進行簡單的平行遊戲。",
+        applebeeStage: "序列期 (Sequences)",
+        applebeeDesc: "事件圍繞著主題展開，但時間與邏輯順序尚不完整。",
+        tips: "擴張寶貝的話（當他說「車車」，您可以說「對！是大紅車車」）。"
+      },
+      {
+        minMonths: 25, maxMonths: 36, ageLabel: "2 歲 - 3 歲",
+        mluText: "2.0 - 3.0 字",
+        receptive: "能聽懂兩步驟連續指令（如：「把玩具放好，然後過來坐下」），理解大/小等概念。",
+        expressive: "會說 3 個字以上的完整句子，會問「這是什麼？」，開始使用代名詞（我、你）。",
+        speech: "熟人能聽懂約 50%-75% 的內容，聲母（d, t, g, k, n, h）逐漸穩定。",
+        social: "會用語言展現輪流表達（Turn-taking），會與同儕進行簡單互動。",
+        applebeeStage: "原始敘事期 (Primitive Narratives)",
+        applebeeDesc: "圍繞特定人物或情節展開，事件間開始出現初步的情緒或因果連結（如：「小貓掉了，小貓哭哭，媽媽抱」）。",
+        tips: "共讀繪本時，多問「看！這是什麼呀？」，引導寶貝觀察圖片並說出來。"
+      },
+      {
+        minMonths: 37, maxMonths: 48, ageLabel: "3 歲 - 4 歲",
+        mluText: "3.0 - 4.5 字",
+        receptive: "理解「為什麼」、「在哪裡」等疑問句，能聽懂簡單的顏色與形狀概念。",
+        expressive: "能用 4-5 字的完整句說話，會問「為什麼？」，能簡單複述今天發生的事。",
+        speech: "陌生人能聽懂約 75%-80% 的話，多數子音發音趨於成熟。",
+        social: "開始出現假扮遊戲（Pretend play），能遵守簡單的團體規則。",
+        applebeeStage: "無焦點鏈期 (Unfocused Chains)",
+        applebeeDesc: "事件之間有時間先後順序，但缺乏明確的中心角色或主線故事（容易講一講偏題）。",
+        tips: "鼓勵寶貝講述幼兒園發生的事，用「後來呢？」陪伴寶貝完成故事。"
+      },
+      {
+        minMonths: 49, maxMonths: 60, ageLabel: "4 歲 - 5 歲",
+        mluText: "4.5 - 5.5 字",
+        receptive: "能聽懂長篇複雜指令，理解比較級概念（如：「比這個更大」）與時間前後順序。",
+        expressive: "能使用連接詞（因為...所以...），能講述有頭有尾的簡單故事，詞彙豐富。",
+        speech: "陌生人能聽懂 90% 以上，捲舌音或氣音可能仍在發展中。",
+        social: "能與同儕進行合作性遊戲，會在溝通中調整說話口氣。",
+        applebeeStage: "有焦點鏈期 (Focused Chains)",
+        applebeeDesc: "有明確的中心主角與連續事件鏈，但故事結局可能較不成熟或突然中斷。",
+        tips: "邀請寶貝扮演故事角色，討論故事中角色的心情（如：「小熊為什麼生氣了呢？」）。"
+      },
+      {
+        minMonths: 61, maxMonths: 72, ageLabel: "5 歲 - 6 歲",
+        mluText: "5.5 - 6.5 字",
+        receptive: "理解抽象詞彙與複雜空間概念，能聽懂多步驟指令與故事隱喻。",
+        expressive: "能精準運用文法與結構複雜的句子，能清晰描述事情經過與細節。",
+        speech: "語音發展基本成熟（達 95% 以上清晰度），發音正確清晰。",
+        social: "展現成熟的社交談話技巧，能進行協商、說服與合作。",
+        applebeeStage: "真實敘事期 (True Narratives)",
+        applebeeDesc: "包含完整的故事結構（主角、動機、障礙、嘗試、結果與最後結尾），因果關係明確。",
+        tips: "引導寶貝進行故事創作或改編，練習表達自己的想法與解決方案。"
+      },
+      {
+        minMonths: 73, maxMonths: 96, ageLabel: "6 歲 - 8 歲 (國小低年級)",
+        mluText: "6.5 - 7.5 字",
+        receptive: "閱讀理解能力快速發展，能理解文章隱含寓意、比喻與複雜句型。",
+        expressive: "能進行結構嚴謹的口頭報告、故事重述，靈活運用成語與連接詞。",
+        speech: "發音完全正確且清晰，具備高階後設語言能力 (Metalinguistic awareness)。",
+        social: "能同理他人感受並調整溝通策略，能遵守課堂社交規範與同儕討論。",
+        applebeeStage: "真實與高階敘事期 (Advanced Narratives)",
+        applebeeDesc: "能講述具備高潮迭起、心理描寫與主題昇華的完整故事篇章。",
+        tips: "鼓勵閱讀兒童章節書，討論書中角色的動機與思考不同觀點。"
+      },
+      {
+        minMonths: 97, maxMonths: 144, ageLabel: "8 歲 - 12 歲 (國小中高年級)",
+        mluText: "7.5+ 字 (篇章級)",
+        receptive: "能理解雙關語、幽默諷刺、高階抽象概念與跨領域學科文本。",
+        expressive: "口語與書面語轉換自如，能進行說服性簡報、辯論與嚴謹文章寫作。",
+        speech: "口語表達流暢、語調抑揚頓挫、極富感染力。",
+        social: "掌握複雜社交情境中的後設溝通，能精準解讀非口語訊息與社交潛規則。",
+        applebeeStage: "複合與嵌入式高階敘事 (Complex Narratives)",
+        applebeeDesc: "故事包含雙主線、倒敘或插敘等高階文學敘事手法，展現深刻思考。",
+        tips: "鼓勵參與辯論、演講或撰寫閱讀心得，引導進行批判性思考。"
+      }
+    ];
+
+    // 檢核清單資料
+    const CHECKLIST_DATA = [
+      { months: 6, label: "會發出咕咕聲，對大聲音有轉頭反應" },
+      { months: 12, label: "會說第一個有意義的單字（如：媽媽、ㄋㄋ）" },
+      { months: 18, label: "詞彙量達 10-20 個，會指著東西要大人拿" },
+      { months: 24, label: "會組合兩個詞（如：「媽媽抱」、「吃餅乾」）" },
+      { months: 36, label: "會講 3 字以上的完整句，會問「這是什麼？」" },
+      { months: 48, label: "會問「為什麼？」，能聽懂顏色與形狀概念" },
+      { months: 60, label: "能講述有頭有尾的簡單故事，會用「因為...所以...」" },
+      { months: 72, label: "發音清晰，能與同儕進行合作遊戲與順暢溝通" },
+      { months: 96, label: "能進行結構嚴謹的課堂發表與長篇繪本重述" },
+      { months: 120, label: "能理解雙關語、抽象成語並進行說服性表達" }
+    ];
+
+    // 初始化載入
+    window.onload = function() {
+      renderChecklist();
+      calculateLanguageAge();
+    };
+
+    // 切換主頁面區塊 (頂部 Nav)
+    function switchMainSection(sectionId) {
+      const sections = ['section-child', 'section-swallow', 'section-about'];
+      const navBtns = ['nav-btn-child', 'nav-btn-swallow', 'nav-btn-about'];
+
+      sections.forEach((sec, idx) => {
+        const el = document.getElementById(sec);
+        const btn = document.getElementById(navBtns[idx]);
+        
+        if (sec === sectionId) {
+          el.classList.remove('hidden');
+          btn.className = "px-3.5 py-2 rounded-xl transition-all duration-200 bg-macaron-500 text-white shadow-sm flex items-center gap-1.5";
+        } else {
+          el.classList.add('hidden');
+          btn.className = "px-3.5 py-2 rounded-xl transition-all duration-200 text-milktea-600 hover:bg-milktea-100 flex items-center gap-1.5";
+        }
+      });
+    }
+
+    // 切換兒童換算器子頁籤
+    function switchChildTab(tabId) {
+      activeChildTab = tabId;
+      const tabs = ['tab-age', 'tab-checklist', 'tab-mlu'];
+      const modes = ['mode-age', 'mode-checklist', 'mode-mlu'];
+
+      tabs.forEach((t, idx) => {
+        const btn = document.getElementById(`btn-${t}`);
+        const mode = document.getElementById(modes[idx]);
+
+        if (t === tabId) {
+          btn.className = "flex-1 md:flex-initial px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 bg-macaron-500 text-white shadow-sm";
+          mode.classList.remove('hidden');
+        } else {
+          btn.className = "flex-1 md:flex-initial px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 bg-white text-milktea-600 border border-milktea-200 hover:bg-milktea-50";
+          mode.classList.add('hidden');
+        }
+      });
+    }
+
+    // 切換實歲 / 生日輸入
+    function toggleAgeInputType() {
+      isBirthDateMode = !isBirthDateMode;
+      const directInput = document.getElementById('direct-age-input');
+      const birthInput = document.getElementById('birth-date-input');
+      const toggleBtn = document.getElementById('input-type-toggle');
+
+      if (isBirthDateMode) {
+        directInput.classList.add('hidden');
+        birthInput.classList.remove('hidden');
+        toggleBtn.innerText = "改用「實歲/月份」輸入";
+      } else {
+        directInput.classList.remove('hidden');
+        birthInput.classList.add('hidden');
+        toggleBtn.innerText = "改用「出生日期」計算";
+      }
+    }
+
+    // 快速設置年齡
+    function setQuickAge(y, m) {
+      document.getElementById('input-years').value = y;
+      document.getElementById('input-months').value = m;
+      if (isBirthDateMode) toggleAgeInputType();
+      calculateLanguageAge();
+    }
+
+    // 同步 MLU 顯示
+    function syncMluValue(val) {
+      document.getElementById('mlu-value-display').innerText = `${val} 字`;
+    }
+
+    // 動態渲染能力檢核項目
+    function renderChecklist() {
+      const container = document.getElementById('checklist-items');
+      if (!container) return;
+      container.innerHTML = CHECKLIST_DATA.map((item, idx) => `
+        <label class="flex items-start gap-2.5 p-2.5 rounded-xl border border-milktea-100 hover:bg-milktea-50 cursor-pointer transition">
+          <input type="radio" name="checklist-radio" value="${item.months}" ${idx === 3 ? 'checked' : ''} class="mt-0.5 accent-macaron-500">
+          <div class="text-xs">
+            <span class="font-bold text-milktea-700">[${item.months} 個月水準]</span>
+            <span class="text-milktea-600">${item.label}</span>
+          </div>
+        </label>
+      `).join('');
+    }
+
+    // 核心換算邏輯
+    function calculateLanguageAge() {
+      let caTotalMonths = 30;
+      let childName = document.getElementById('child-name').value.trim() || "寶貝";
+
+      if (activeChildTab === 'tab-age') {
+        if (isBirthDateMode) {
+          const birthVal = document.getElementById('input-birthdate').value;
+          if (birthVal) {
+            const birthDate = new Date(birthVal);
+            const today = new Date();
+            let months = (today.getFullYear() - birthDate.getFullYear()) * 12 + (today.getMonth() - birthDate.getMonth());
+            caTotalMonths = months > 0 ? months : 1;
+          } else {
+            caTotalMonths = 30;
+          }
+        } else {
+          const y = parseInt(document.getElementById('input-years').value) || 0;
+          const m = parseInt(document.getElementById('input-months').value) || 0;
+          caTotalMonths = (y * 12) + m;
+        }
+      } else if (activeChildTab === 'tab-checklist') {
+        const checked = document.querySelector('input[name="checklist-radio"]:checked');
+        if (checked) caTotalMonths = parseInt(checked.value);
+      } else if (activeChildTab === 'tab-mlu') {
+        const mluVal = parseFloat(document.getElementById('input-mlu-range').value);
+        if (mluVal <= 1.2) caTotalMonths = 12;
+        else if (mluVal <= 1.8) caTotalMonths = 20;
+        else if (mluVal <= 2.5) caTotalMonths = 30;
+        else if (mluVal <= 3.8) caTotalMonths = 42;
+        else if (mluVal <= 5.0) caTotalMonths = 54;
+        else if (mluVal <= 6.0) caTotalMonths = 66;
+        else if (mluVal <= 7.0) caTotalMonths = 84;
+        else if (mluVal <= 8.0) caTotalMonths = 108;
+        else caTotalMonths = 132;
+      }
+
+      if (caTotalMonths <= 0) caTotalMonths = 1;
+
+      let matchedData = MILESTONE_DATABASE.find(item => caTotalMonths >= item.minMonths && caTotalMonths <= item.maxMonths);
+      if (!matchedData) {
+        matchedData = MILESTONE_DATABASE[MILESTONE_DATABASE.length - 1];
+      }
+
+      const displayYears = Math.floor(caTotalMonths / 12);
+      const displayMonths = caTotalMonths % 12;
+      let caText = "";
+      if (displayYears > 0 && displayMonths > 0) caText = `${displayYears}歲${displayMonths}個月`;
+      else if (displayYears > 0) caText = `${displayYears}歲`;
+      else caText = `${displayMonths}個月`;
+
+      // UI 更新
+      document.getElementById('res-child-title').innerText = `${childName} 的發展摘要報告`;
+      document.getElementById('res-ca-text').innerText = caText;
+      document.getElementById('res-ca-months').innerText = `(相當於 ${caTotalMonths} 個月)`;
+
+      document.getElementById('res-la-text').innerText = `${matchedData.minMonths} - ${matchedData.maxMonths} 個月`;
+      document.getElementById('res-la-range').innerText = `相當於 ${matchedData.ageLabel}`;
+      document.getElementById('res-mlu-text').innerText = matchedData.mluText;
+
+      document.getElementById('res-receptive-desc').innerText = matchedData.receptive;
+      document.getElementById('res-expressive-desc').innerText = matchedData.expressive;
+      document.getElementById('res-speech-desc').innerText = matchedData.speech;
+      document.getElementById('res-social-desc').innerText = matchedData.social;
+      
+      document.getElementById('res-applebee-stage').innerText = matchedData.applebeeStage;
+      document.getElementById('res-applebee-desc').innerText = matchedData.applebeeDesc;
+
+      document.getElementById('res-guidance-tips').innerHTML = matchedData.tips.split('，').map(t => `• ${t}`).join('<br>');
+    }
+
+    // 吞嚥風險評估邏輯
+    function evaluateSwallowRisk() {
+      const checkboxes = document.querySelectorAll('.swallow-check:checked');
+      const count = checkboxes.length;
+      const box = document.getElementById('swallow-result-box');
+      const title = document.getElementById('swallow-risk-title');
+      const desc = document.getElementById('swallow-risk-desc');
+
+      box.classList.remove('hidden');
+
+      if (count === 0) {
+        title.innerHTML = `<i class="fa-solid fa-circle-check text-macaron-500"></i> 目前吞嚥狀況相當良好！`;
+        desc.innerText = "未發現明顯的吞嚥安全警訊。請繼續保持良好的進食習慣與姿勢喔！";
+      } else if (count <= 2) {
+        title.innerHTML = `<i class="fa-solid fa-circle-exclamation text-yellow-500"></i> 發現輕微吞嚥警訊 (${count} 項)`;
+        desc.innerText = "建議平時進食時放慢速度，並注意食物質地是否太乾或太稀。如嗆咳頻率增加，歡迎來語治不嘻嘻諮詢！";
+      } else {
+        title.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500"></i> 建議尋求專業語言治療評估 (${count} 項警訊)`;
+        desc.innerText = "已出現較多吞嚥安全警訊（如聲音濕啞、殘留或嗆咳）。為避免吸入性肺炎風險，強烈建議由語言治療師或復健科進行吞嚥評估。";
+      }
+    }
+
+    // IDDSI 質地資料庫
+    const IDDSI_DATA = {
+      0: { title: "Level 0 稀薄液體 (Thin)", desc: "就像一般的清水、茶水、清湯。流速極快，適合吞嚥功能正常的個案。", tip: "對喝水易嗆咳者風險較高。" },
+      2: { title: "Level 2 微稠液體 (Slightly Thick)", desc: "質地如花蜜或濃湯。傾倒時流速較緩，適合喝水輕微嗆咳者。", tip: "可用市售凝固劑（增稠劑）調配。" },
+      3: { title: "Level 3 中稠液體 / 流質 (Moderately Thick)", desc: "質地如蜂蜜或麵糊。可用湯匙食用或用粗吸管吸取。", tip: "不會在盤中堆疊成型。" },
+      4: { title: "Level 4 極濃稠液體 / 泥狀食物 (Pureed)", desc: "質地如蘋果泥、芝麻糊、慕斯。不會流動，不需咀嚼即可直接吞嚥。", tip: "不可以含有任何顆粒或外皮。" },
+      5: { title: "Level 5 細碎濕潤型 (Minced & Moist)", desc: "食物顆粒小於 4mm（長者）或 2mm（兒童）。可用舌頭壓碎，口感濕潤不黏牙。", tip: "例如：細肉末粥、蒸蛋、絞肉。" },
+      6: { title: "Level 6 軟質一口大小 (Soft & Bite-Sized)", desc: "食物切成 1.5cm 以內一口大小。質地鬆軟，可用叉子壓碎。", tip: "例如：清蒸魚塊、切塊香蕉、煮爛蘿蔔。" },
+      7: { title: "Level 7 普通飲食 (Easy to Chew / Normal)", desc: "一般的正常食物，無特別質地限制，需具備完整咀嚼能力。", tip: "包含各種硬度與質地的日常飲食。" }
+    };
+
+    // 顯示 IDDSI 細節
+    function showIDDSI(level) {
+      const data = IDDSI_DATA[level];
+      if (!data) return;
+      document.getElementById('iddsi-title').innerText = data.title;
+      document.getElementById('iddsi-desc').innerText = data.desc;
+      document.getElementById('iddsi-tip').innerText = `提示：${data.tip}`;
+    }
+  </script>
+</body>
+</html>
